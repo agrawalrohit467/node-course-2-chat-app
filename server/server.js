@@ -3,7 +3,7 @@ const express = require('express');
 const socketIO = require('socket.io');
 const http = require('http');
 
-const {generateMessage, generateLocationMessage} = require('./utils/message');
+const {generateMessage, generateLocationMessage, generateUserColor} = require('./utils/message');
 const {isRealString} = require('./utils/validation.js');
 const {Users} = require('./utils/users');
 
@@ -13,7 +13,7 @@ const app = express();
 var server = http.createServer(app);
 var io = socketIO(server);
 var users = new Users();
-
+  
 app.use(express.static(publicPath));
 
 io.on('connection', (socket)=>{
@@ -24,9 +24,13 @@ io.on('connection', (socket)=>{
           return callback('Name and Room Name are required');  
         }
 
+        if(users.checkDuplicateUserInRoom(params.name, params.room)){
+            return callback('Display Name already used. Choose another display name');
+        }
+
         socket.join(params.room);
         users.removeUser(socket.id);
-        users.addUser(socket.id, params.name, params.room);
+        users.addUser(socket.id, params.name, params.room, generateUserColor());
 
         io.to(params.room).emit('updateUserList', users.getUserList(params.room));
         socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat app'));
@@ -38,7 +42,7 @@ io.on('connection', (socket)=>{
         var user = users.getUser(socket.id);
 
         if(user && isRealString(message.text)){
-            io.to(user.room).emit('newMessage', generateMessage(user.name, message.text));
+            io.to(user.room).emit('newMessage', generateMessage(user.name, message.text, user.displayColor));
         }
 
         callback();
@@ -48,7 +52,7 @@ io.on('connection', (socket)=>{
         var user = users.getUser(socket.id);
 
         if(user){
-            io.to(user.room).emit('newLocationMessage', generateLocationMessage(user.name, coords.latitude, coords.longitude));
+            io.to(user.room).emit('newLocationMessage', generateLocationMessage(user.name, coords.latitude, coords.longitude, user.displayColor));
         } 
     });
 

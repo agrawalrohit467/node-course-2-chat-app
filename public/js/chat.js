@@ -48,7 +48,8 @@ socket.on('newMessage', function(message){
     var html = Mustache.render(template,{
         text: message.text,
         from: message.from,
-        createdAt:formattedTime
+        createdAt:formattedTime,
+        displayColor: `color:${message.displayColor}`
     });
 
     $('#messages').append(html);
@@ -61,7 +62,8 @@ socket.on('newLocationMessage', function(message){
     var html = Mustache.render(template, {
         from: message.from,
         url: message.url,
-        createdAt:formattedTime
+        createdAt:formattedTime,
+        displayColor: `color:${message.displayColor}`
     })
     $('#messages').append(html);
     scrollToBottom();

@@ -3,8 +3,8 @@ class Users{
         this.users = [];
     }
 
-    addUser(id, name, room){
-        var user = {id, name, room};
+    addUser(id, name, room, displayColor){
+        var user = {id, name, room, displayColor};
         this.users.push(user);
         return user;
     }
@@ -23,6 +23,10 @@ class Users{
         var users = this.users.filter((user) => user.room === room);
         var namesArray = users.map((user) => user.name);
         return namesArray;
+    }
+    checkDuplicateUserInRoom(name, room){
+        var userCount = this.users.filter((user) => user.room === room && user.name === name).length;
+        return userCount || name === 'Admin';
     }
 }
 
