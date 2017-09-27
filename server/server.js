@@ -42,7 +42,9 @@ io.on('connection', (socket)=>{
         var user = users.getUser(socket.id);
 
         if(user && isRealString(message.text)){
-            io.to(user.room).emit('newMessage', generateMessage(user.name, message.text, user.displayColor));
+            //io.to(user.room).emit('newMessage', generateMessage(user.name, message.text, user.displayColor));
+            socket.broadcast.to(user.room).emit('newMessage', generateMessage(user.name, message.text, user.displayColor));
+            socket.emit('newMessage', generateMessage('You', message.text, user.displayColor));
         }
 
         callback();
@@ -52,7 +54,9 @@ io.on('connection', (socket)=>{
         var user = users.getUser(socket.id);
 
         if(user){
-            io.to(user.room).emit('newLocationMessage', generateLocationMessage(user.name, coords.latitude, coords.longitude, user.displayColor));
+            //io.to(user.room).emit('newLocationMessage', generateLocationMessage(user.name, coords.latitude, coords.longitude, user.displayColor));
+            socket.broadcast.to(user.room).emit('newLocationMessage', generateLocationMessage(user.name, coords.latitude, coords.longitude, user.displayColor));
+            socket.emit('newLocationMessage', generateLocationMessage('You', coords.latitude, coords.longitude, user.displayColor));
         } 
     });
 
