@@ -57,8 +57,8 @@ socket.on('newMessage', function(message){
     var formattedTime = moment(message.createdAt).format('h:mm a');
     var template = $('#message-template').html();
     var css;
-    if(message.from === "You") css = 'float:right';
-    else css = 'float:left';
+    if(message.from === "You") css = 'float:right;background-color:#dcf8c6;';
+    else css = 'float:left;background-color:#fff;';
     var html = Mustache.render(template,{
         text: message.text,
         from: message.from,
@@ -74,11 +74,15 @@ socket.on('newMessage', function(message){
 socket.on('newLocationMessage', function(message){
     var formattedTime = moment(message.createdAt).format('h:mm a');
     var template = $('#location-message-template').html();
+    var css;
+    if(message.from === "You") css = 'float:right;background-color:#dcf8c6;';
+    else css = 'float:left;background-color:#fff;';
     var html = Mustache.render(template, {
         from: message.from,
         url: message.url,
         createdAt:formattedTime,
-        displayColor: `color:${message.displayColor}`
+        displayColor: `color:${message.displayColor}`,
+        css
     })
     $('#messages').append(html);
     scrollToBottom();

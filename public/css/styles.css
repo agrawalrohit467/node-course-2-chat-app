@@ -152,6 +152,7 @@
   .chat__messages {
     list-style-type: none;
     padding: 10px;
+    background-color:#e5ddd5
   }
   
   .message {
