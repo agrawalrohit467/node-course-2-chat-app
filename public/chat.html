@@ -25,8 +25,14 @@
         </div>
     </div>
     
+    <script id="admin-message-template" type="text/template">
+        <li class="message admin_message">
+            <p>{{message}}</p>
+        </li>
+    </script>
+
     <script id="message-template" type="text/template">
-        <li class="message">
+        <li class="message" style={{css}}>
                 <div class="message__title">
                     <h4 style={{displayColor}}>{{from}}</h4>
                     <span>{{createdAt}}</span>

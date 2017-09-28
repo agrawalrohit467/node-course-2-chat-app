@@ -9,8 +9,9 @@ function scrollToBottom(){
     var scrollHeight = messages.prop('scrollHeight');
     var newMessageHeight = newMessage.innerHeight();
     var lastMessageHeight = newMessage.prev().innerHeight();
+    var padding = 30;
 
-    if(clientHeight + scrollTop + newMessageHeight + lastMessageHeight >= scrollHeight){
+    if(clientHeight + scrollTop + newMessageHeight + lastMessageHeight + padding >= scrollHeight){
         messages.scrollTop(scrollHeight);
     }
 }
@@ -42,14 +43,28 @@ socket.on('updateUserList', function(users){
     $('#users').html(ol);
 })
 
+socket.on('adminMessage', function(message){
+    var template = $('#admin-message-template').html();
+    var html = Mustache.render(template,{
+        message
+    });
+
+    $('#messages').append(html);
+    scrollToBottom();
+});
+
 socket.on('newMessage', function(message){
     var formattedTime = moment(message.createdAt).format('h:mm a');
     var template = $('#message-template').html();
+    var css;
+    if(message.from === "You") css = 'float:right';
+    else css = 'float:left';
     var html = Mustache.render(template,{
         text: message.text,
         from: message.from,
         createdAt:formattedTime,
-        displayColor: `color:${message.displayColor}`
+        displayColor: `color:${message.displayColor}`,
+        css
     });
 
     $('#messages').append(html);

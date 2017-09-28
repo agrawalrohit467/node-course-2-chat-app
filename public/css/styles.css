@@ -157,8 +157,18 @@
   .message {
     padding: 10px;
     border: solid 1px lightgrey;
-    margin: 8px;
+    margin: 5px 8px;
     border-radius: 10px;
+    clear: both;
+    max-width: 90%;
+  }
+
+  .admin_message{
+    float: left;
+    margin-left: 50%;
+    transform: translate(-50%);
+    background-color: #a4d4f1;
+    padding: 3px 5px;
   }
   
   .message__title {
