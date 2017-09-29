@@ -91,12 +91,12 @@ socket.on('newLocationMessage', function(message){
 $("#message-form").on('submit', function(e){
     e.preventDefault();
 
-    var messageTextbox = $('[name=message]');
+    //var messageTextbox = $('[name=message]');
     //text: messageTextbox.val()
     socket.emit('createMessage', {
         text: $('.emojionearea-editor').html()
     }, function(){
-        messageTextbox.val('');
+        //messageTextbox.val('');
         $('.emojionearea-editor').html('');
         if($('.emojionearea-picker').css("display") !== "none")
             $('.emojionearea-button-close').click();

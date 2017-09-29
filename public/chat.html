@@ -79,20 +79,12 @@
                 standalone: true,
                 autocomplete: false
             });
-            // $('body').click(function (evt) {
-            //     if (evt.target.id == "menu_content")
-            //         return;
-            //     if ($(evt.target).closest('#menu_content').length)
-            //         return;
-
-            //     //Do processing of click event here for every element except with id menu_content
-
-            // });
-            // $(".emojionearea-editor *").keypress(function (e) {
-            //     if (e.keyCode == 13 || e.which == 13) {
-            //         alert('refr');
-            //     }
-            // });
+            $('#message-form').on('keydown', '.emojionearea-editor', function (event) {
+                var keyCode = (event.keyCode ? event.keyCode : event.which);   
+                if (keyCode == 13) {
+                    $('#message-form button').trigger('click');
+                }
+            });
         });
     </script>
 </body>

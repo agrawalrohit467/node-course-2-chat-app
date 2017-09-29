@@ -1,9 +1,6 @@
 var moment = require('moment');
-var adminDisplayColor = 'Blue';
 
 var generateMessage = (from, text, displayColor) =>{
-    displayColor = displayColor || adminDisplayColor;
-
     return {
         from,
         text,
@@ -13,8 +10,6 @@ var generateMessage = (from, text, displayColor) =>{
 }
 
 var generateLocationMessage = (from, lat, lng, displayColor)=>{
-    displayColor = displayColor || adminDisplayColor;
-    
     return{
         from,
         url:`https://www.google.com/maps?q=${lat},${lng}`,
