@@ -18,7 +18,7 @@
         <ol id="messages" class="chat__messages"></ol>
         <div class="chat__footer">
             <form id="message-form">
-                <input name="message" type="text" placeholder="Message" autofocus autocomplete="off"/>
+                <input name="message" id="emojionearea1" type="text" placeholder="Message" autofocus autocomplete="off"/>
                 <button>Send</button>
             </form>
             <button id="send-location">Send location</button>
@@ -38,7 +38,7 @@
                     <span>{{createdAt}}</span>
                 </div>
                 <div class="message__body">
-                    <p>{{text}}</p>
+                    <p>{{{text}}}</p>
                 </div>
             </li>
     </script>
@@ -57,11 +57,43 @@
         </li>
     </script>
 
-    <script src="/socket.io/socket.io.js"></script>
     <script src="/js/libs/jquery-3.2.1.min.js"></script>
+    <script src="/js/libs/emojionearea.min.js"></script>
+    <link rel="stylesheet" href="/css/emojionearea.min.css">
+    <script src="/socket.io/socket.io.js"></script>
     <script src="/js/libs/moment.js"></script>
     <script src="/js/libs/mustache.js"></script>
     <script src="/js/libs/deparam.js"></script>
     <script src="/js/chat.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#emojionearea1").emojioneArea({
+                pickerPosition: "top",
+                filtersPosition: "bottom",
+                tones: false,
+                autocomplete: false,
+                inline: true,
+                hidePickerOnBlur: false
+            });
+            $("#standalone").emojioneArea({
+                standalone: true,
+                autocomplete: false
+            });
+            // $('body').click(function (evt) {
+            //     if (evt.target.id == "menu_content")
+            //         return;
+            //     if ($(evt.target).closest('#menu_content').length)
+            //         return;
+
+            //     //Do processing of click event here for every element except with id menu_content
+
+            // });
+            // $(".emojionearea-editor *").keypress(function (e) {
+            //     if (e.keyCode == 13 || e.which == 13) {
+            //         alert('refr');
+            //     }
+            // });
+        });
+    </script>
 </body>
 </html>

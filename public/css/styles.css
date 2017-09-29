@@ -139,8 +139,8 @@
     display: flex;
   }
   
-  .chat__footer form * {
-    margin-right: 10px;
+  .chat__footer form button {
+    margin: 0px 10px;
   }
   
   .chat__footer input {
@@ -193,6 +193,8 @@
   
   .message__title span {
     color: #999;
+    font-size: 12px;
+    padding: 2px;
   }
   
   @media (max-width: 600px) {
@@ -215,4 +217,22 @@
     .chat__footer button {
       margin-right: 0px;
     }
+  }
+
+  .emojionearea-standalone {
+    float: right;
+  }
+
+  img.emojioneemoji{
+    font-size: inherit;
+    height: 2ex;
+    width: 2.1ex;
+    min-height: 20px;
+    min-width: 20px;
+    display: inline-block;
+    margin: -.2ex .15em .2ex;
+    line-height: normal;
+    vertical-align: middle;
+    max-width: 100%;
+    top: 0;
   }
